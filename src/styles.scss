@@ -1,0 +1,96 @@
+$primary-color: #86bfa2;
+$switch-color: #ffc64a;
+$prefixes: -webkit-, -moz-, -ms-, -o-, '';
+
+.App {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+}
+#container{
+  display: flex;
+  margin-top: 30px;
+  justify-content: center;
+}
+#drum-machine{
+  background-color: #f0f5d5;
+  width:500px;
+  height: 500px;
+  border: #68d4a5 5px solid;
+
+  #display{
+    font-size: 2em;
+    background-color: #6acc99;
+    color:white;
+    width: 200px;
+    text-align: center;
+    padding:5px;
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+    margin: 20px auto;
+  }
+
+  .drum-pads{
+    width: 300px;
+    display: grid;
+    margin-left: 80px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 0px; /* 列間距和行間距 */
+    .drum-pad{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $primary-color;
+      width: 100px;
+      height: 100px;
+      margin: 5px;
+      border-radius: 20%;
+      box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+      p{
+        color:white;
+        font-size: 2.5em;
+      }
+    }
+  }
+
+  #control{
+    margin-top:10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .volume-slider {
+      display: flex;
+      align-items: center;
+      margin: 20px;
+      width: 300px;
+      input{
+        width: 200px;
+        margin: auto;
+        background-color: white;
+        border: none;
+        @each $prefix in $prefixes {
+          #{$prefix}appearance: none;
+          #{$prefix}border-radius: 10px;
+          #{$prefix}height: 6px;
+          #{$prefix}box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+          
+          &#{$prefix}::-webkit-slider-thumb {
+            #{$prefix}appearance: none;
+            #{$prefix}width: 16px;
+            #{$prefix}height: 25px;
+            #{$prefix}background-color: #6acc99;
+            #{$prefix}border-radius: 20%;
+            #{$prefix}cursor: pointer;
+            #{$prefix}box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5);
+          }
+        }
+      }
+    }
+  }
+}
+
+.playing{
+  background-color: $switch-color !important;
+  color:white;
+  transform:scale(1.1);
+  transition: transform 0.1s ease;
+}
