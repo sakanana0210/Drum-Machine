@@ -1,5 +1,5 @@
 import './styles.scss'; 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback} from 'react';
 import Heater1 from './music/Q.mp3';
 import Heater2 from './music/W.mp3';
 import Heater3 from './music/E.mp3';
@@ -11,7 +11,8 @@ import Kick from './music/X.mp3';
 import Closed_HH from './music/C.mp3';
 
 const DrumPad = ({ div_id, letter, audioSrc, setDisplay, volume}) => {
-  const playSound = () => {
+  // callback 避免在每次渲染時都重新創建函數
+  const playSound = useCallback(() => {
     const audio = document.querySelector(`audio[id="${letter}"]`);
     const keydiv = document.querySelector(`div[id="${div_id}"]`); 
     if (!audio) return;
@@ -20,7 +21,8 @@ const DrumPad = ({ div_id, letter, audioSrc, setDisplay, volume}) => {
     audio.currentTime = 0;
     audio.play();
     setDisplay(); 
-  };
+  },[div_id, letter, audioSrc, setDisplay, volume]);
+  // useCallback 的依賴數組應包含所有在 playSound 函數內部使用的變數，以確保只有在這些變數更改時，playSound 才會被重新創建。
 
   // 按下按鍵
   useEffect(() => {
@@ -34,7 +36,7 @@ const DrumPad = ({ div_id, letter, audioSrc, setDisplay, volume}) => {
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [letter, setDisplay]);
+  }, [letter, setDisplay, playSound]);
 
   // 消除樣式
   const removeTransition = (event) => {
