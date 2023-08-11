@@ -21,7 +21,7 @@ const DrumPad = ({ div_id, letter, audioSrc, setDisplay, volume}) => {
     audio.currentTime = 0;
     audio.play();
     setDisplay(); 
-  },[div_id, letter, audioSrc, setDisplay, volume]);
+  },[div_id, letter, setDisplay, volume]);
   // useCallback 的依賴數組應包含所有在 playSound 函數內部使用的變數，以確保只有在這些變數更改時，playSound 才會被重新創建。
 
   // 按下按鍵
